@@ -3,64 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DOOM</title>
-    <!-- Native JS WAD Renderer Engine -->
-    <script src="https://github.io"></script>
+    <title>DOOM Fullscreen</title>
+    <!-- Use V8 standalone styles and scripts -->
+    <link rel="stylesheet" href="https://js-dos.com">
+    <script src="https://js-dos.com"></script>
     <style>
-        /* Force true fullscreen and kill scrollbars */
+        /* Force true fullscreen layout and kill native bars */
         html, body { 
             margin: 0; 
             padding: 0; 
             background: #000; 
             width: 100vw; 
             height: 100vh; 
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden; 
         }
-        /* Make the game canvas stretch to fill the browser exactly */
-        #canvas { 
-            display: block; 
+        #jsdos-container { 
             width: 100vw; 
             height: 100vh; 
-            object-fit: contain; /* Preserves Doom's classic retro aspect ratio */
-            background: #000; 
         }
-        /* Loading Status Text */
-        #status {
-            position: absolute;
-            color: #ff0000;
-            font-family: monospace;
-            font-size: 1.5rem;
-            text-shadow: 2px 2px #000;
-            pointer-events: none;
+        /* Style adjustments to make the emulator UI fill out completely */
+        .jsdos-canvas {
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
 
-    <div id="status">LOADING DOOM1.WAD...</div>
-    <canvas id="canvas" width="640" height="400"></canvas>
+    <div id="jsdos-container"></div>
 
     <script>
-        window.addEventListener('load', () => {
-            const canvas = document.getElementById('canvas');
-            const statusText = document.getElementById('status');
-            const doom = new Doom(canvas);
-            
-            // Fetch the WAD and wait dynamically until download completes
-            doom.loadWad('./DOOM1.WAD')
-                .then(() => {
-                    statusText.style.display = 'none'; // Hide loading text
-                    doom.start();
-                    canvas.focus(); // Force focus so keys work instantly
-                })
-                .catch(err => {
-                    console.error("Error loading WAD:", err);
-                    statusText.innerText = "ERROR: Could not load DOOM1.WAD. Check file capitalization.";
-                });
-        });
+        // Start the standalone runner directly on your repo's file
+        Dos(document.getElementById("jsdos-container"))
+            .run("./DOOM1.WAD");
     </script>
 
 </body>
