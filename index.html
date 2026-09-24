@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Play DOOM on GitHub Pages</title>
-    <!-- Load JS-DOS Emulator Styles and Scripts -->
-    <link rel="stylesheet" href="https://js-dos.com">
-    <script src="https://js-dos.com"></script>
+    <!-- Load JS-DOS V7 Core Components -->
+    <link rel="stylesheet" href="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.css">
+    <script src="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.js"></script>
     <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        #jsdos { width: 640px; height: 400px; }
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            background: #000; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+        }
+        #jsdos { 
+            width: 100vw; 
+            height: 100vh; 
+        }
     </style>
 </head>
 <body>
@@ -17,9 +27,12 @@
     <div id="jsdos"></div>
 
     <script>
-        // Initialize the emulator inside the div and load a free Doom shareware/freedoom zip
+        // CRITICAL FIX: Tells the emulator exactly where to fetch its background Wasm player modules
+        emulators.pathPrefix = "https://js-dos.com/v7/build/releases/latest/js-dos/";
+
+        // Initializes and runs your local repository's freedoom.zip
         Dos(document.getElementById("jsdos"))
-            .run(./DOOM1.WAD);
+            .run("./freedoom.zip"); 
     </script>
 
 </body>
