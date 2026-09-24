@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play DOOM on GitHub Pages</title>
+    <!-- Load JS-DOS Emulator Styles and Scripts -->
+    <link rel="stylesheet" href="https://js-dos.com">
+    <script src="https://js-dos.com"></script>
+    <style>
+        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #jsdos { width: 640px; height: 400px; }
+    </style>
+</head>
+<body>
+
+    <div id="jsdos"></div>
+
+    <script>
+        // Initialize the emulator inside the div and load a free Doom shareware/freedoom zip
+        Dos(document.getElementById("jsdos"))
+            .run("https://js-dos.com"); // Default shareware package provided by js-dos
+    </script>
+
+</body>
+</html>
