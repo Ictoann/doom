@@ -2,37 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Play DOOM on GitHub Pages</title>
-    <!-- Load JS-DOS V7 Core Components -->
-    <link rel="stylesheet" href="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.css">
-    <script src="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOOM</title>
+    <!-- Lightweight native loader bypasses GitHub cross-origin restrictions -->
+    <script src="https://js-dos.com"></script>
+    <script src="https://js-dos.com"></script>
     <style>
-        html, body { 
-            margin: 0; 
-            padding: 0; 
-            background: #000; 
-            width: 100%; 
-            height: 100%; 
-            overflow: hidden; 
-        }
-        #jsdos { 
-            width: 100vw; 
-            height: 100vh; 
-        }
+        html, body { margin: 0; padding: 0; background: #000; width: 100%; height: 100%; overflow: hidden; }
+        #container { width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
 
-    <div id="jsdos"></div>
+    <div id="container"></div>
 
     <script>
-        // CRITICAL FIX: Tells the emulator exactly where to fetch its background Wasm player modules
-        emulators.pathPrefix = "https://js-dos.com/v7/build/releases/latest/js-dos/";
-
-        // Initializes and runs your local repository's freedoom.zip
-        Dos(document.getElementById("jsdos"))
-            .run("DOOM1.WAD"); 
+        // Uses the v8 native runner optimized for standalone repositories
+        Dos(document.getElementById("container"))
+            .run("DOOM1.WAD");
     </script>
 
 </body>
