@@ -1,17 +1,41 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOOM</title>
-    <!-- Modern, working js-dos styles and scripts -->
-    <link rel="stylesheet" href="https://js-dos.com">
-    <script src="https://js-dos.com"></script>
+    <title>DOOM Player</title>
     <style type="text/css">
-        body { background: #111; color: #fff; font-family: sans-serif; text-align: center; padding-top: 50px; }
-        /* Your container styling, updated for modern js-dos layout sizing */
-        #dosbox { width: 640px; height: 400px; margin: 0 auto; background: #000; border: 4px solid #333; }
-        button { margin-top: 15px; padding: 10px 20px; font-weight: bold; background: #ff0000; color: #fff; border: none; cursor: pointer; }
+        body { 
+            background: #111; 
+            color: #fff; 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding-top: 30px; 
+            margin: 0;
+        }
+        /* Container box for the game */
+        #game-wrapper {
+            position: relative;
+            width: 640px; 
+            height: 400px; 
+            margin: 0 auto; 
+            background: #000; 
+            border: 4px solid #333;
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+        button { 
+            margin-top: 15px; 
+            padding: 10px 20px; 
+            font-weight: bold; 
+            background: #ff0000; 
+            color: #fff; 
+            border: none; 
+            cursor: pointer; 
+        }
         button:hover { background: #cc0000; }
     </style>
 </head>
@@ -19,25 +43,30 @@
 
     <h2>My Doom Page</h2>
     
-    <!-- The game box container -->
-    <div id="dosbox"></div>
+    <div id="game-wrapper">
+        <!-- Native sandboxed web engine running your exact file -->
+        <iframe id="doom-frame" src=""></iframe>
+    </div>
     
-    <!-- Working Fullscreen button trigger -->
-    <button onclick="toggleFullScreen()">Make fullscreen</button>
+    <button onclick="goFullscreen()">Make fullscreen</button>
     
     <script type="text/javascript">
-        // Start modern js-dos container pointing to your repo's DOOM1.WAD via an open wrapper
-        let dosInstance = Dos(document.getElementById("dosbox"));
-        
-        // This secure cross-origin emulator proxy feeds your raw WAD directly into a DOS runner
-        dosInstance.run("https://dos.zone");
+        window.addEventListener('load', () => {
+            // Find the location of your repository automatically
+            const baseUrl = window.location.href.split('?')[0].replace(/\/\$/, "");
+            const wadUrl = `${baseUrl}/DOOM1.WAD`;
+            
+            // Streams your local WAD file straight through a plug-and-play HTML5 engine
+            const emulatorUrl = `https://github.io{encodeURIComponent(wadUrl)}`;
+            document.getElementById('doom-frame').src = emulatorUrl;
+        });
 
-        // Fixed fullscreen logic for modern browsers
-        function toggleFullScreen() {
-            const element = document.getElementById("dosbox");
-            if (element.requestFullscreen) element.requestFullscreen();
-            else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen();
-            else if (element.msRequestFullscreen) element.msRequestFullscreen();
+        // Fullscreen browser controller
+        function goFullscreen() {
+            const frame = document.getElementById("doom-frame");
+            if (frame.requestFullscreen) frame.requestFullscreen();
+            else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+            else if (frame.msRequestFullscreen) frame.msRequestFullscreen();
         }
     </script>
 </body>
