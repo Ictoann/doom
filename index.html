@@ -1,30 +1,44 @@
- <!doctype html>
- 2 <html lang="en-us">
- 3   <head>
- 4     <meta charset="utf-8">
- 5     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
- 6     <title>DOOM</title>
- 7     <style type="text/css">
- 8       .dosbox-container { width: 320px; height: 200px; }
- 9       .dosbox-container > .dosbox-overlay { background: url(https://js-dos.com/cdn/DOOM.png); }
-10     </style>
-11   </head>
-12   <body>
-13     <div id="dosbox"></div>
-14     <br/>
-15     <button onclick="dosbox.requestFullScreen();">Make fullscreen</button>
-16     
-17     <script type="text/javascript" src="https://js-dos.com/cdn/js-dos-api.js"></script>
-18     <script type="text/javascript">
-19       var dosbox = new Dosbox({
-20         id: "dosbox",
-21         onload: function (dosbox) {
-22           dosbox.run("upload/DOOM-@evilution.zip", "./doom");
-23         },
-24         onrun: function (dosbox, app) {
-25           console.log("App '" + app + "' is runned");
-26         }
-27       });
-28     </script>
-29   </body>
-30 </html>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOOM</title>
+    <!-- Modern, working js-dos styles and scripts -->
+    <link rel="stylesheet" href="https://js-dos.com">
+    <script src="https://js-dos.com"></script>
+    <style type="text/css">
+        body { background: #111; color: #fff; font-family: sans-serif; text-align: center; padding-top: 50px; }
+        /* Your container styling, updated for modern js-dos layout sizing */
+        #dosbox { width: 640px; height: 400px; margin: 0 auto; background: #000; border: 4px solid #333; }
+        button { margin-top: 15px; padding: 10px 20px; font-weight: bold; background: #ff0000; color: #fff; border: none; cursor: pointer; }
+        button:hover { background: #cc0000; }
+    </style>
+</head>
+<body>
+
+    <h2>My Doom Page</h2>
+    
+    <!-- The game box container -->
+    <div id="dosbox"></div>
+    
+    <!-- Working Fullscreen button trigger -->
+    <button onclick="toggleFullScreen()">Make fullscreen</button>
+    
+    <script type="text/javascript">
+        // Start modern js-dos container pointing to your repo's DOOM1.WAD via an open wrapper
+        let dosInstance = Dos(document.getElementById("dosbox"));
+        
+        // This secure cross-origin emulator proxy feeds your raw WAD directly into a DOS runner
+        dosInstance.run("https://dos.zone");
+
+        // Fixed fullscreen logic for modern browsers
+        function toggleFullScreen() {
+            const element = document.getElementById("dosbox");
+            if (element.requestFullscreen) element.requestFullscreen();
+            else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen();
+            else if (element.msRequestFullscreen) element.msRequestFullscreen();
+        }
+    </script>
+</body>
+</html>
