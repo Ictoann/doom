@@ -2,55 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DOOM Fullscreen</title>
+    <title>Play DOOM in Browser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- js-dos CSS -->
+    <link rel="stylesheet" href="https://js-dos.com">
+    <!-- js-dos API -->
+    <script src="https://js-dos.com"></script>
     <style>
-        /* Force zero margins and lock scrollbars for true fullscreen */
-        html, body {
+        body {
             margin: 0;
-            padding: 0;
-            background-color: #000;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+            background: #111;
+            color: #eee;
+            font-family: sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-        }
-        /* Lock canvas aspect ratio perfectly across monitors */
-        canvas {
-            width: 100vw;
+            justify-content: center;
             height: 100vh;
-            object-fit: contain;
-            image-rendering: pixelated;
+        }
+        h1 { margin-bottom: 10px; font-size: 1.5rem; }
+        #canvas {
+            width: 640px;
+            height: 400px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
+    <h1>Classic DOOM</h1>
+    <div id="canvas"></div>
 
-    <!-- Native Emscripten renderer container -->
-    <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-
-    <script type="text/javascript">
-        var Module = {
-            canvas: document.getElementById('canvas'),
-            // Automatically points the native compiler arguments directly to your file
-            arguments: ["-iwad", "DOOM1.WAD", "-window"],
-            print: console.log,
-            printErr: console.error
-        };
-
-        window.addEventListener('load', () => {
-            // Dynamically injects the unblocked open-source WebAssembly compiler loop
-            var script = document.createElement('script');
-            script.src = "https://github.io";
-            script.async = true;
-            document.body.appendChild(script);
-            
-            // Force keyboard focus immediately onto the game canvas window
-            Module.canvas.focus();
+    <script>
+        Dos(document.getElementById("canvas"), {
+            url: "https://js-dos.com",
+        }).ready((app) => {
+            // Game loaded successfully
         });
     </script>
-
 </body>
 </html>
