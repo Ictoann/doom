@@ -2,42 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Play DOOM in Browser</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- js-dos CSS -->
-    <link rel="stylesheet" href="https://js-dos.com">
-    <!-- js-dos API -->
-    <script src="https://js-dos.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DOOM Fullscreen</title>
     <style>
-        body {
-            margin: 0;
-            background: #111;
-            color: #eee;
-            font-family: sans-serif;
+        /* Force true fullscreen and hide window scrolling */
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            background: #000; 
+            width: 100vw; 
+            height: 100vh; 
+            overflow: hidden; 
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
         }
-        h1 { margin-bottom: 10px; font-size: 1.5rem; }
-        #canvas {
-            width: 640px;
-            height: 400px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            background: #000;
         }
     </style>
 </head>
 <body>
-    <h1>Classic DOOM</h1>
-    <div id="canvas"></div>
+
+    <!-- Uses a pre-authenticated open source cloud player to run Doom instantly -->
+    <iframe id="doom-frame" src="https://github.io" allow="autoplay; keyboard"></iframe>
 
     <script>
-        Dos(document.getElementById("canvas"), {
-            url: "https://js-dos.com",
-        }).ready((app) => {
-            // Game loaded successfully
+        // Forces keyboard control priority inside the page container immediately
+        window.addEventListener('load', () => {
+            const frame = document.getElementById('doom-frame');
+            frame.focus();
         });
     </script>
+
 </body>
 </html>
